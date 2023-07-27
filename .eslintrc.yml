@@ -20,7 +20,7 @@ rules:
   no-console: error # disable console
   no-var: error ## disable var
   quotes: [error, single, { avoidEscape: true }] ## Use single quotes
-  indent: [error, tab] ## Indent two spaces
+  indent: [error, 2, { SwitchCase: 1 }] ## Indent two spaces
   comma-dangle: [error, never] ## Prohibit end commas
   semi: [error, never] ## Prohibit end semicolons
   arrow-parens: [error, always] ## Arguments to arrow functions must be enclosed in parentheses

@@ -11,5 +11,5 @@
  * ```
  */
 export function calcGameTicks(milliseconds = 1000, gameTicksPerSecond = 20, millisecondsPerSecond = 1000) {
-	return Math.floor(milliseconds / (millisecondsPerSecond / gameTicksPerSecond))
+  return Math.floor(milliseconds / (millisecondsPerSecond / gameTicksPerSecond))
 }

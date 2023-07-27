@@ -11,11 +11,11 @@
  * ```
  */
 export function splitGroups(sum: number, groupSize = 64) {
-	const groups = []
-	while (sum > 0) {
-		const group = Math.min(sum, groupSize)
-		groups.push(group)
-		sum -= group
-	}
-	return groups
+  const groups = []
+  while (sum > 0) {
+    const group = Math.min(sum, groupSize)
+    groups.push(group)
+    sum -= group
+  }
+  return groups
 }
