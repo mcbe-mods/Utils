@@ -56,7 +56,9 @@ export default class Experience {
 
   /**
    * Get the current level of experience
-   * Assuming that the player is currently level 1 and the next level is level 2, and that level 2 requires 9 experience points ({@link getNextLevelRequiredXP}), and at this point the player only has 3 experience points, this function will return 3 experience points
+   * Assuming that the player is currently level 1 and the next level is level 2
+   * and that level 2 requires 9 experience points ({@link getNextLevelRequiredXP})
+   * and at this point the player only has 3 experience points, this function will return 3 experience points
    * @returns {number} current level of experience
    */
   getXP() {
