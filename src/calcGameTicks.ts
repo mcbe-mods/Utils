@@ -10,10 +10,6 @@
  * calcGameTicks(500) // => 10
  * ```
  */
-export function calcGameTicks(
-  milliseconds = 1000,
-  gameTicksPerSecond = 20,
-  millisecondsPerSecond = 1000
-) {
-  return Math.floor(milliseconds / (millisecondsPerSecond / gameTicksPerSecond))
+export function calcGameTicks(milliseconds = 1000, gameTicksPerSecond = 20, millisecondsPerSecond = 1000) {
+	return Math.floor(milliseconds / (millisecondsPerSecond / gameTicksPerSecond))
 }
