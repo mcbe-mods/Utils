@@ -15,7 +15,7 @@ readdirSync(distPath).forEach((path) => {
 const content = readdirSync(srcPath)
   .filter((path) => path !== 'index.ts')
   .map((path) => path.replace(/\.ts$/, ''))
-  .map((filename) => `export * from './${filename}'`)
+  .map((filename) => `export * from './${filename}.js'`)
   .join('\n')
 
 writeFileSync(indexPath, content)

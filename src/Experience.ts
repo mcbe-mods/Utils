@@ -1,7 +1,7 @@
 /**
  * Calculating player experience
  */
-export default class Experience {
+export class Experience {
   #level = 0
   #xp = 0
   #nextLevelRequiredXP = this.#calculateRequiredExp(this.#level)
