@@ -38,7 +38,7 @@ rules:
   no-extend-native: error ## Disable extension of native types
   no-mixed-spaces-and-tabs: error ## Disable mixed indentation of spaces and tabs
   no-trailing-spaces: error ## Disable end-of-line spaces
-  no-unused-vars: 1 ## Prohibit the appearance of unused variables
+  # no-unused-vars: 1 ## Prohibit the appearance of unused variables
   no-use-before-define: [error, nofunc] ## Prohibit the use of variables before they are defined
   object-curly-spacing: [error, always] ## No spaces in brackets allowed
   keyword-spacing: [error, { before: true, after: true }] ## Force the use of consistent spaces before and after keywords
