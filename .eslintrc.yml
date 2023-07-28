@@ -11,7 +11,7 @@ parser: '@typescript-eslint/parser'
 
 plugins: ['@typescript-eslint']
 
-ignorePatterns: [src/index.*]
+ignorePatterns: [src/index.*, dist]
 
 rules:
   # off   OR 0

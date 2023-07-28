@@ -1,59 +1,79 @@
-/* eslint-disable camelcase */
+const SECTION_SIGN = '§'
 
-const colors = {
-  black: '§0',
-  dark_blue: '§1',
-  dark_green: '§2',
-  dark_aqua: '§3',
-  dark_red: '§4',
-  dark_purple: '§5',
-  gold: '§6',
-  gray: '§7',
-  dark_gray: '§8',
-  blue: '§9',
-  green: '§a',
-  aqua: '§b',
-  red: '§c',
-  light_purple: '§d',
-  yellow: '§e',
-  white: '§f',
-  minecoin_gold: '§g',
-  obfuscated: '§k',
-  bold: '§l',
-  italic: '§o',
-  reset: '§r'
+// detail: https://minecraft.fandom.com/wiki/Formatting_codes
+const colorCodes = {
+  black: '0',
+  darkBlue: '1',
+  darkGreen: '2',
+  darkAqua: '3',
+  darkRed: '4',
+  darkPurple: '5',
+  gold: '6',
+  gray: '7',
+  darkGray: '8',
+  blue: '9',
+  green: 'a',
+  aqua: 'b',
+  red: 'c',
+  lightPurple: 'd',
+  yellow: 'e',
+  white: 'f',
+  minecoinGold: 'g',
+  materialQuartz: 'h',
+  materialIron: 'i',
+  materialNetherite: 'j',
+  obfuscated: 'k',
+  bold: 'l',
+  materialRedstone: 'm',
+  materialCopper: 'n',
+  italic: 'o',
+  materialGold: 'p',
+  materialEmerald: 'q',
+  reset: 'r',
+  materialDiamond: 's',
+  materialLapis: 't',
+  materialAmethyst: 'u'
 }
 
-const STYLER = Symbol('STYLER')
-const styles = Object.create(null)
-
-type builderFunction = {
-  (...args: string[]): string
-  [STYLER]?: string
+for (const key in colorCodes) {
+  const _key = key as keyof typeof colorCodes
+  colorCodes[_key] = SECTION_SIGN + colorCodes[_key]
 }
 
-for (const [key, value] of Object.entries(colors)) {
-  styles[key] = {
-    get() {
-      const builder = createBuilder(value, this[STYLER])
-      Object.defineProperty(this, key, { value: builder })
-      return builder
+type StyleId = keyof typeof colorCodes
+
+export type Stylizer = {
+  (...strings: string[]): string
+} & {
+  [P in StyleId]: Stylizer
+}
+
+function createStylizer(extend: string[]): Stylizer {
+  const handlerColor = (...args: string[]) => [...extend, ...args].join('')
+
+  const proxy = new Proxy(handlerColor, {
+    get(target, key: string, receiver) {
+      const _key = key as keyof typeof colorCodes
+      const code = colorCodes[_key]
+
+      if (code) return createStylizer([...extend, code])
+
+      return Reflect.get(target, key, receiver)
     }
-  }
+  })
+
+  return proxy as Stylizer
 }
 
-const proto = Object.defineProperties({}, styles)
-
-const _color: Partial<typeof colors> = {}
-
-Object.setPrototypeOf(_color, proto)
-
-function createBuilder(styler: string, parent: string) {
-  const value = parent ? parent + styler : styler
-  const builder: builderFunction = (...args: string[]) => value + args.join('')
-  builder[STYLER] = value
-  Object.setPrototypeOf(builder, proto)
-  return builder
-}
-
-export const color = _color
+/**
+ * Text color
+ * @example
+ * ```js
+ * color.green.italic.bold('Dedicated Ser') + color.reset('ver') + color.red.obfuscated('!!!')
+ * // => '§a§o§lDedicated Ser§rver§c§k!!!'
+ *
+ * color.green.italic.bold('Dedicated Ser', color.reset('ver'), color.red.obfuscated('!!!'))
+ * // => '§a§o§lDedicated Ser§rver§c§k!!!'
+ * ```
+ */
+export const color = createStylizer([])
