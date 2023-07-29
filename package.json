@@ -1,7 +1,7 @@
 {
   "name": "@mcbe-mods/utils",
   "description": "Provide convenient and practical tools to improve the efficiency of mod development.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "build": "pnpm lint && node build.js && tsc",
