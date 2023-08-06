@@ -76,4 +76,4 @@ function createStylizer(extend: string[]): Stylizer {
  * // => '§a§o§lDedicated Ser§rver§c§k!!!'
  * ```
  */
-export const color = createStylizer([])
+export const color = /*#__PURE__*/ createStylizer([])
