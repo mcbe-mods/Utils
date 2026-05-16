@@ -7,10 +7,10 @@ export interface Location {
 /**
  * With {@link location} as the center, get the range coordinates of the radius {@link radius}
  * @param { Location } location
- * @param { number } [radius=1]
- * @returns
+ * @param { number } [radius]
+ * @returns { Location[] } location
  */
-export function getRadiusRange(location: Location, radius = 1) {
+export function getRadiusRange(location: Location, radius: number = 1): Location[] {
   const centerX = location.x
   const centerY = location.y
   const centerZ = location.z

@@ -11,9 +11,11 @@ export class Experience {
    * @param {number} level current level
    * @returns {number} level up required experience
    */
-  #calculateRequiredExp(level: number) {
-    if (level < 16) return 2 * level + 7
-    if (level < 31) return 5 * level - 38
+  #calculateRequiredExp(level: number): number {
+    if (level < 16)
+      return 2 * level + 7
+    if (level < 31)
+      return 5 * level - 38
 
     return 9 * level - 158
   }
@@ -22,7 +24,7 @@ export class Experience {
    * Get all experience from level 0 to current level
    * @returns {number} total experience
    */
-  getTotalXP() {
+  getTotalXP(): number {
     let totalXp = this.#xp
     let level = this.#level
     while (level > 0) {
@@ -35,16 +37,16 @@ export class Experience {
   /**
    * @returns {number} Next level required experience
    */
-  getNextLevelRequiredXP() {
+  getNextLevelRequiredXP(): number {
     return this.#nextLevelRequiredXP
   }
 
   /**
    * Add experience
    * @param {number} points required add experience points
-   * @returns {this}
+   * @returns {this} self
    */
-  addXP(points: number) {
+  addXP(points: number): this {
     this.#xp += points
     while (this.#xp >= this.#nextLevelRequiredXP) {
       this.#level++
@@ -61,16 +63,16 @@ export class Experience {
    * and at this point the player only has 3 experience points, this function will return 3 experience points
    * @returns {number} current level of experience
    */
-  getXP() {
+  getXP(): number {
     return this.#xp
   }
 
   /**
    * If it is set to 8 experience points, then {@link getXP} gets the experience value of 8 experience points
    * @param points required set experience points
-   * @returns {this}
+   * @returns {this} self
    */
-  setXP(points: number) {
+  setXP(points: number): this {
     this.#xp = 0
     this.addXP(points)
     return this
@@ -79,9 +81,9 @@ export class Experience {
   /**
    * Add level, assuming player level 1, after adding 2 levels it will become level 3
    * @param {number} level required add level
-   * @returns {this}
+   * @returns {this} self
    */
-  addLevel(level: number) {
+  addLevel(level: number): this {
     this.#level = Math.max(0, this.#level + level)
     this.#nextLevelRequiredXP = this.#calculateRequiredExp(this.#level)
     return this
@@ -89,18 +91,18 @@ export class Experience {
 
   /**
    * Get current level
-   * @returns {number}
+   * @returns {number} current level
    */
-  getLevel() {
+  getLevel(): number {
     return this.#level
   }
 
   /**
    * If set to level 8, the level {@link getLevel} gets is level 8
    * @param level required set level
-   * @returns {this}
+   * @returns {this} self
    */
-  setLevel(level: number) {
+  setLevel(level: number): this {
     this.#level = 0
     this.addLevel(level)
     return this

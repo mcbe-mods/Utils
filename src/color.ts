@@ -30,7 +30,7 @@ const colorCodes = {
   reset: '§r',
   materialDiamond: '§s',
   materialLapis: '§t',
-  materialAmethyst: '§u'
+  materialAmethyst: '§u',
 } as const
 
 type StyleId = keyof typeof colorCodes
@@ -42,17 +42,18 @@ export type Stylizer = {
 }
 
 function createStylizer(extend: string[]): Stylizer {
-  const handlerColor = (...args: string[]) => [...extend, ...args].join('')
+  const handlerColor = (...args: string[]): string => [...extend, ...args].join('')
 
   const proxy = new Proxy(handlerColor, {
     get(target, key: string, receiver) {
       const _key = key as keyof typeof colorCodes
       const code = colorCodes[_key]
 
-      if (code) return createStylizer([...extend, code])
+      if (code)
+        return createStylizer([...extend, code])
 
       return Reflect.get(target, key, receiver)
-    }
+    },
   })
 
   return proxy as Stylizer
@@ -69,4 +70,4 @@ function createStylizer(extend: string[]): Stylizer {
  * // => '§a§o§lDedicated Ser§rver§c§k!!!'
  * ```
  */
-export const color = /*#__PURE__*/ createStylizer([])
+export const color = /* #__PURE__ */ createStylizer([])

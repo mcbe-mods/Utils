@@ -1,47 +1,67 @@
 {
   "name": "@mcbe-mods/utils",
-  "description": "Provide convenient and practical tools to improve the efficiency of mod development.",
-  "version": "0.1.1",
   "type": "module",
-  "scripts": {
-    "build": "pnpm lint && node build.js && tsc",
-    "lint": "eslint src && prettier --check src",
-    "lint:fix": "eslint --fix src && prettier --check --write src"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
+  "version": "0.1.1",
+  "packageManager": "pnpm@10.33.1",
+  "description": "Utility functions for Minecraft Bedrock Edition mod development",
+  "author": "Lete114",
   "license": "MIT",
+  "homepage": "https://github.com/mcbe-mods/Utils#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mcbe-mods/Utils"
+    "url": "git+https://github.com/mcbe-mods/Utils.git"
   },
-  "files": [
-    "dist"
-  ],
+  "bugs": "https://github.com/mcbe-mods/Utils/issues",
   "keywords": [
     "minecraft",
     "bedrock",
     "utils"
   ],
-  "devDependencies": {
-    "@types/node": "^20.4.4",
-    "@typescript-eslint/eslint-plugin": "^6.2.0",
-    "@typescript-eslint/parser": "^6.2.0",
-    "eslint": "^8.45.0",
-    "prettier": "^3.0.0",
-    "typescript": "^5.0.2"
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
   },
-  "dependencies": {
-    "@minecraft/server": "latest"
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "lint": "eslint",
+    "prepublishOnly": "nr build",
+    "release": "bumpp",
+    "start": "tsx src/index.ts",
+    "test": "pnpm run build && vitest",
+    "typecheck": "tsc",
+    "prepare": "simple-git-hooks"
+  },
+  "peerDependencies": {
+    "@minecraft/server": ">=1.18.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "catalog:cli",
+    "@antfu/ni": "catalog:cli",
+    "@antfu/utils": "catalog:inlined",
+    "@types/node": "catalog:types",
+    "bumpp": "catalog:cli",
+    "eslint": "catalog:cli",
+    "lint-staged": "catalog:cli",
+    "publint": "catalog:cli",
+    "simple-git-hooks": "catalog:cli",
+    "tsdown": "catalog:cli",
+    "tsdown-stale-guard": "catalog:testing",
+    "tsnapi": "catalog:testing",
+    "tsx": "catalog:cli",
+    "typescript": "catalog:cli",
+    "vite": "catalog:cli",
+    "vitest": "catalog:testing"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm i --frozen-lockfile --ignore-scripts --offline && pnpm run build && npx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }
